@@ -4,7 +4,7 @@ public class BeamBreakConfig {
     public final boolean inversion; 
     public final int port;
 
-    public BeamBreakConfig(int port) { this(port, false); }
+    public BeamBreakConfig(int port) { this(port, true); }
 
     public BeamBreakConfig(int port, boolean inversion) {
         this.port = port;

@@ -63,13 +63,16 @@ public class TalonElevator extends Elevator {
     }
 
 
+    public Command manuallyControlWithPID(double offset, double error) {
+        return moveElevator(getEncoderPos() + offset, error);
+    }
+
     public Command moveUp(double speed) {
         return runOnce(() -> {
             usePID = false;
             leadMotor.set(Math.abs(speed));
         });
     }
-
 
     public Command moveDown(double speed) {
         return runOnce(() -> {

@@ -16,6 +16,15 @@ public class BeamBreak {
         return config.inversion ? !beamBreak.get() : beamBreak.get();
     } 
 
+    public BooleanSupplier isEqualTo(boolean value) {
+        return () -> {
+            if (value) {
+                return isBlocked();
+            }
+            return !isBlocked();
+        };
+    }
+
     public BooleanSupplier getBlockedSupplier() {
         return () -> isBlocked();
     }

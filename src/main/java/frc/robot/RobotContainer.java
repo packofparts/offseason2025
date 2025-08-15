@@ -4,53 +4,61 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ScoringSetpoints;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Rollers;
+import frc.robot.subsystems.Solenoid;
 import frc.robot.subsystems.Swerve;
 import poplib.controllers.oi.OI;
 import poplib.controllers.oi.XboxOI;
+import poplib.controllers.oi.Joysticks.OIConstants;
 import poplib.swerve.commands.TeleopSwerveDrive;
+
+import java.net.ContentHandler;
+
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final Swerve swerve = new Swerve(null, null, null);   // 
+
+  private final Swerve swerve = Swerve.getInstance(); 
+  private final Elevator elevator = Elevator.getInstance();
+  private final Rollers rollers = Rollers.getInstance();
+  private final Solenoid solenoid = Solenoid.getInstance();
+
   private final OI oi = XboxOI.getInstance();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
     swerve.setDefaultCommand(new TeleopSwerveDrive(swerve, oi));
+    configureBindings();
   }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
+
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    oi.getDriverButton(XboxController.Button.kX.value).onTrue(doAction(ScoringSetpoints.INTAKE));
+    oi.getDriverButton(XboxController.Button.kA.value).onTrue(doAction(ScoringSetpoints.L2));
+    oi.getDriverButton(XboxController.Button.kY.value).onTrue(doAction(ScoringSetpoints.L3));
+
+    oi.getOperatorButton(XboxController.Button.kA.value).onTrue(solenoid.extendSolenoid());
+    oi.getOperatorButton(XboxController.Button.kY.value).onTrue(solenoid.retractSolenoid());
+    oi.getOperatorButton(XboxController.Button.kX.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
+    oi.getOperatorButton(XboxController.Button.kB.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
+    oi.getOperatorButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
+    oi.getOperatorController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+  private Command doAction(ScoringSetpoints setpoint) {
+    return elevator.moveElevator(setpoint.getElevator()).
+    andThen(solenoid.changePneumatics(setpoint.getSolenoid())).
+    andThen(rollers.runRollers()).
+    until(rollers.beamBreak.isEqualTo(setpoint.getNewBeamBreakVal())).
+    andThen(rollers.stopRollers()).
+    andThen(solenoid.extendSolenoid()).
+    andThen(elevator.moveElevator(Constants.Elevator.ELEVATOR_DOWN_POSITION));
+  }
+  
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
     return null;
   }
 }
