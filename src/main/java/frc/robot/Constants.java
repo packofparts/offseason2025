@@ -91,8 +91,6 @@ public final class Constants {
         public static final double MAX_ERROR = 1.0;
         
         public static final double MANUAL_CONTROL_STEP_SIZE = 5.0;
-
-        public static final double ELEVATOR_DOWN_POSITION = 0.0;
     }
 
     public static class Rollers {
@@ -108,37 +106,20 @@ public final class Constants {
         public static BeamBreakConfig BEAMBREAK_CONFIG = new BeamBreakConfig(2);                 // change
     }
 
-    public static class Solenoid {
-        public static PneumaticsModuleType MODULE_TYPE = PneumaticsModuleType.REVPH;
-        public static int MIN_PRESSURE = 85;
-        public static int MAX_PRESSURE = 135;
-    }
-
     public enum ScoringSetpoints {
-        INTAKE(45, true, true),
-        L2(30, false, false),
-        L3(60, false, false);
+        IDLE(0),
+        INTAKE(45),
+        L2(30),
+        L3(60);
 
         private double elevator;
-        private boolean solenoid;
-        private boolean newBeamBreakVal;
-
-        private ScoringSetpoints (double elevator, boolean solenoid, boolean newBeamBreakVal) {
+        
+        private ScoringSetpoints (double elevator) {
             this.elevator = elevator;
-            this.solenoid = solenoid;
-            this.newBeamBreakVal = newBeamBreakVal;
         }
 
         public double getElevator() {
             return this.elevator;
-        }
-
-        public boolean getSolenoid() {
-            return this.solenoid;
-        }
-
-        public boolean getNewBeamBreakVal() {
-            return this.newBeamBreakVal;
         }
     }
 }

@@ -7,7 +7,6 @@ package frc.robot;
 import frc.robot.Constants.ScoringSetpoints;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Rollers;
-import frc.robot.subsystems.Solenoid;
 import frc.robot.subsystems.Swerve;
 import poplib.controllers.oi.OI;
 import poplib.controllers.oi.XboxOI;
@@ -25,7 +24,6 @@ public class RobotContainer {
   private final Swerve swerve = Swerve.getInstance(); 
   private final Elevator elevator = Elevator.getInstance();
   private final Rollers rollers = Rollers.getInstance();
-  private final Solenoid solenoid = Solenoid.getInstance();
 
   private final OI oi = XboxOI.getInstance();
 
@@ -36,26 +34,30 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    oi.getDriverButton(XboxController.Button.kX.value).onTrue(doAction(ScoringSetpoints.INTAKE));
-    oi.getDriverButton(XboxController.Button.kA.value).onTrue(doAction(ScoringSetpoints.L2));
-    oi.getDriverButton(XboxController.Button.kY.value).onTrue(doAction(ScoringSetpoints.L3));
+    oi.getDriverButton(XboxController.Button.kX.value).onTrue(intake());
+    oi.getDriverButton(XboxController.Button.kA.value).onTrue(score(ScoringSetpoints.L2));
+    oi.getDriverButton(XboxController.Button.kY.value).onTrue(score(ScoringSetpoints.L3));
 
-    oi.getOperatorButton(XboxController.Button.kA.value).onTrue(solenoid.extendSolenoid());
-    oi.getOperatorButton(XboxController.Button.kY.value).onTrue(solenoid.retractSolenoid());
     oi.getOperatorButton(XboxController.Button.kX.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
     oi.getOperatorButton(XboxController.Button.kB.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
     oi.getOperatorButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
     oi.getOperatorController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
+    oi.getOperatorController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
   }
 
-  private Command doAction(ScoringSetpoints setpoint) {
-    return elevator.moveElevator(setpoint.getElevator()).
-    andThen(solenoid.changePneumatics(setpoint.getSolenoid())).
-    andThen(rollers.runRollers()).
-    until(rollers.beamBreak.isEqualTo(setpoint.getNewBeamBreakVal())).
+  private Command intake() {
+    return elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()).
     andThen(rollers.stopRollers()).
-    andThen(solenoid.extendSolenoid()).
-    andThen(elevator.moveElevator(Constants.Elevator.ELEVATOR_DOWN_POSITION));
+    until(rollers.beamBreak.getBlockedSupplier()).
+    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+  }
+
+  private Command score(ScoringSetpoints setpoint) {
+    return elevator.moveElevator(setpoint.getElevator()).
+    andThen(rollers.runRollers()).
+    until(rollers.beamBreak.getUnBlockedSupplier()).
+    andThen(rollers.stopRollers()).
+    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
   }
   
   public Command getAutonomousCommand() {
