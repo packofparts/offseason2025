@@ -10,14 +10,9 @@ import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Swerve;
 import poplib.controllers.oi.OI;
 import poplib.controllers.oi.XboxOI;
-import poplib.controllers.oi.Joysticks.OIConstants;
 import poplib.swerve.commands.TeleopSwerveDrive;
-
-import java.net.ContentHandler;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class RobotContainer {
 
@@ -34,30 +29,15 @@ public class RobotContainer {
 
 
   private void configureBindings() {
-    oi.getDriverButton(XboxController.Button.kX.value).onTrue(intake());
-    oi.getDriverButton(XboxController.Button.kA.value).onTrue(score(ScoringSetpoints.L2));
-    oi.getDriverButton(XboxController.Button.kY.value).onTrue(score(ScoringSetpoints.L3));
-
-    oi.getOperatorButton(XboxController.Button.kX.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
-    oi.getOperatorButton(XboxController.Button.kB.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
-    oi.getOperatorButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
-    oi.getOperatorController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
-    oi.getOperatorController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
-  }
-
-  private Command intake() {
-    return elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()).
-    andThen(rollers.stopRollers()).
-    until(rollers.beamBreak.getBlockedSupplier()).
-    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
-  }
-
-  private Command score(ScoringSetpoints setpoint) {
-    return elevator.moveElevator(setpoint.getElevator()).
-    andThen(rollers.runRollers()).
-    until(rollers.beamBreak.getUnBlockedSupplier()).
-    andThen(rollers.stopRollers()).
-    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+    oi.getDriverButton(XboxController.Button.kX.value).onTrue(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
+    oi.getDriverButton(XboxController.Button.kB.value).onTrue(elevator.moveElevator(ScoringSetpoints.L2.getElevator()));
+    oi.getDriverButton(XboxController.Button.kY.value).onTrue(elevator.moveElevator(ScoringSetpoints.L3.getElevator()));
+    oi.getDriverButton(XboxController.Button.kA.value).onTrue(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+    oi.getDriverTrigger(XboxController.Axis.kRightTrigger.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
+    oi.getDriverTrigger(XboxController.Axis.kLeftTrigger.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
+    oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
+    oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
+    oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
   }
   
   public Command getAutonomousCommand() {

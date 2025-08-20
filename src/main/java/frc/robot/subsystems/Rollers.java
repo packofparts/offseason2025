@@ -24,11 +24,9 @@ public class Rollers extends SubsystemBase {
   }
 
   private SparkMax motor;
-  public BeamBreak beamBreak;
 
   public Rollers() {
     motor = Constants.Rollers.MOTOR_CONFIG.createSparkMax();
-    beamBreak = Constants.Rollers.BEAMBREAK_CONFIG.createBeamBreak();
   }
 
   public Command runRollers() {

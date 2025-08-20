@@ -27,7 +27,7 @@ import poplib.swerve.swerve_constants.SwerveModuleConstants;
  */
 public final class Constants {
 
-    static final String CANIVORE_NAME = "";
+    static final String CANIVORE_NAME = "cantBUS";
 
     public static final class Swerve { 
 
@@ -56,7 +56,7 @@ public final class Constants {
             SWERVE_CAN_ID_OFFSET
         );
 
-        public static final int PIGEON_ID = 13;    // change
+        public static final int PIGEON_ID = 20;    // change
         public static final boolean GYRO_INVERSION = false;      // change - gyro should be ccw+ and cw-
 
         public static final double WHEEL_BASE =  edu.wpi.first.math.util.Units.inchesToMeters(23);    // change
@@ -102,8 +102,6 @@ public final class Constants {
         );
 
         public static double SPEED = 1.0;
-
-        public static BeamBreakConfig BEAMBREAK_CONFIG = new BeamBreakConfig(2);                 // change
     }
 
     public enum ScoringSetpoints {
