@@ -81,13 +81,11 @@ public abstract class SwerveModule {
     }
 
     public void log() {
-        if (swerveModuleConstants.swerveTuningMode) {
             double angle = getAngle().in(Units.Degrees);
             putNumber("Module Angle", angle);
             putNumber("Normalized Module Angle", MathUtil.inputModulus(angle, 0.0, 360.0));
             putNumber("Drive Velo", getVelocity().in(Units.MetersPerSecond));
             putNumber("CanCoder Angle", getAbsoluteAngleDegrees());
-        }
     }
 
     public void putNumber(String key, double value) {
@@ -127,7 +125,6 @@ public abstract class SwerveModule {
             putNumber("Target Drive Velo", state.speedMetersPerSecond);
             putNumber("Target Angle", angle.getDegrees());
         }
-    
         applySwerveModuleState(state.speedMetersPerSecond, angle);
     }
 

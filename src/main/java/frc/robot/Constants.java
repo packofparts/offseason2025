@@ -44,10 +44,10 @@ public final class Constants {
                 // Rotation2d.fromDegrees(283.007812),
                 // Rotation2d.fromDegrees(162.421875),
                 // Rotation2d.fromDegrees(173.408203)
-                Rotation2d.fromDegrees(38.7),              // set offsets
-                Rotation2d.fromDegrees(281.074),           // set offsets
-                Rotation2d.fromDegrees(165.0),             // set offsets
-                Rotation2d.fromDegrees(177.6)              //  set offsets
+                Rotation2d.fromDegrees(134.2),              // set offsets
+                Rotation2d.fromDegrees(32.4),           // set offsets
+                Rotation2d.fromDegrees(226.4),             // set offsets
+                Rotation2d.fromDegrees(348.8)              //  set offsets
             },
             MODULE_TYPE, 
             TUNING_MODE, 

@@ -65,7 +65,7 @@ abstract public class BaseSwerve extends SubsystemBase {
         angleTuning = new PIDTuning("Swerve Angle", swerveMods[0].swerveModuleConstants.angleConfig.pid,  swerveMods[0].swerveModuleConstants.swerveTuningMode);
         driveTuning = new PIDTuning("Swerve Drive",  swerveMods[0].swerveModuleConstants.driveConfig.pid,  swerveMods[0].swerveModuleConstants.swerveTuningMode);
 
-        SmartDashboard.putData("Field", field);
+        SmartDashboard.putData("FIELD_THING_LOL", field);
     }
 
     public void driveChassis(ChassisSpeeds chassisSpeeds) {
@@ -240,6 +240,7 @@ abstract public class BaseSwerve extends SubsystemBase {
         field.setRobotPose(newOdomPose);
 
         for (SwerveModule i : swerveMods) {
+            System.out.println("TS");
             if (tuningMode) {
                 i.updatePID(angleTuning, driveTuning);
             }

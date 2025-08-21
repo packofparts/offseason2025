@@ -136,6 +136,7 @@ public abstract class VisionBaseSwerve extends BaseSwerve {
       return this.odom.getEstimatedPosition();
    }
 
+   @Override
    public void periodic() {
       super.periodic();
       this.odom.update(this.getGyro().getNormalizedRotation2dAngle(), this.getPose());

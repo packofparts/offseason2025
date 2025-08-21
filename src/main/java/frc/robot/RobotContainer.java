@@ -17,18 +17,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
 
   private final Swerve swerve = Swerve.getInstance(); 
-  private final Elevator elevator = Elevator.getInstance();
-  private final Rollers rollers = Rollers.getInstance();
+  //private final Elevator elevator = Elevator.getInstance();
+  //private final Rollers rollers = Rollers.getInstance();
 
   private final OI oi = XboxOI.getInstance();
 
   public RobotContainer() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(swerve, oi));
-    configureBindings();
+   // configureBindings();
   }
 
 
-  private void configureBindings() {
+  /*private void configureBindings() {
     oi.getDriverButton(XboxController.Button.kX.value).onTrue(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
     oi.getDriverButton(XboxController.Button.kB.value).onTrue(elevator.moveElevator(ScoringSetpoints.L2.getElevator()));
     oi.getDriverButton(XboxController.Button.kY.value).onTrue(elevator.moveElevator(ScoringSetpoints.L3.getElevator()));
@@ -38,7 +38,7 @@ public class RobotContainer {
     oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
     oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
     oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
-  }
+  }*/
   
   public Command getAutonomousCommand() {
     return null;
