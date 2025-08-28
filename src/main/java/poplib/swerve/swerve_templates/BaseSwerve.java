@@ -240,7 +240,6 @@ abstract public class BaseSwerve extends SubsystemBase {
         field.setRobotPose(newOdomPose);
 
         for (SwerveModule i : swerveMods) {
-            System.out.println("TS");
             if (tuningMode) {
                 i.updatePID(angleTuning, driveTuning);
             }

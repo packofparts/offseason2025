@@ -15,10 +15,9 @@ public class SparkElevator extends Elevator {
     public SparkMax followMotor;
     boolean usePID;
 
-    public SparkElevator(MotorConfig motorConfig, FollowerConfig followerConfig, FFConfig ffConfig, boolean tuningMode, boolean usePID, String subsystemName) {
+    public SparkElevator(MotorConfig motorConfig, FollowerConfig followerConfig, FFConfig ffConfig, boolean tuningMode, String subsystemName) {
         super(ffConfig, tuningMode, subsystemName);
 
-        this.usePID = usePID;
         leadMotor = motorConfig.createSparkMax();
         leadMotor.getEncoder().setPosition(0.0);
         followMotor = followerConfig.createSparkMax();
@@ -28,18 +27,21 @@ public class SparkElevator extends Elevator {
     @Override
     public void periodic() {            
         super.tuning.updatePID(leadMotor);
+        updatePID();
+        
         SmartDashboard.putNumber("Elevator lead motor pos", getEncoderPos());
         SmartDashboard.putNumber("Elevator follow motor pos", followMotor.getEncoder().getPosition());
+        SmartDashboard.putNumber("Elevator Amp to Motor", leadMotor.getOutputCurrent());
+        SmartDashboard.putNumber("elevator sp", super.setpoint.get());
     }
 
     public void updatePID() {
-        if (usePID) {
             leadMotor.getClosedLoopController().setReference(
                 super.setpoint.get(), 
                 ControlType.kPosition, 
                 ClosedLoopSlot.kSlot1, 
                 super.feedforward.calculate(getEncoderPos(), 0.0));
-        }
+        
     }
 
     public double getEncoderPos() {
@@ -57,6 +59,10 @@ public class SparkElevator extends Elevator {
         return runOnce(() -> {
             leadMotor.set(Math.abs(speed));
         });
+    }
+
+     public Command manuallyControlWithPID(double offset, double error) {
+        return moveElevator(getEncoderPos() + offset, error);
     }
 
     /**

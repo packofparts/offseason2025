@@ -32,7 +32,7 @@ public final class Constants {
     public static final class Swerve { 
 
         static final SDSModules MODULE_TYPE = SDSModules.MK4iL3;  // change
-        static final boolean TUNING_MODE = true;
+        static final boolean TUNING_MODE = false;
         static final int SWERVE_CAN_ID_OFFSET = 5;      
 
         static final MotorConfig DRIVE_CONFIG = new MotorConfig(CANIVORE_NAME, 80, false, PIDConfig.getPid(0.01, 0.2), Mode.BRAKE);
@@ -74,19 +74,19 @@ public final class Constants {
         public static boolean TUNING_MODE = false;
 
         public static MotorConfig RIGHT_MOTOR_CONFIG = new MotorConfig(
-            33,                                                 // change
+            34,                                                 // change
             60,
-            true,                                           // change 
-            new PIDConfig(0.1, 0, 0.0, 0.02),                 // maybe change
+            false,                                           // change 
+            new PIDConfig(0.2, 0, 0.0, 0.02),                 // maybe change
             Mode.BRAKE
         );
         public static FollowerConfig LEFT_MOTOR_CONFIG = new FollowerConfig(
             RIGHT_MOTOR_CONFIG, 
             false,                                            // change
-            34                                                   // change
+            33                                                   // change
         );
 
-        public static FFConfig FEEDFORWARD_CONFIG = new FFConfig(0.012);      // maybe change
+        public static FFConfig FEEDFORWARD_CONFIG = new FFConfig(0.6);      // maybe change
 
         public static final double MAX_ERROR = 1.0;
         
@@ -98,10 +98,10 @@ public final class Constants {
             55,
             40,
             false,
-            Mode.COAST
+            Mode.BRAKE
         );
 
-        public static double SPEED = 1.0;
+        public static double SPEED = 0.9;
     }
 
     public enum ScoringSetpoints {

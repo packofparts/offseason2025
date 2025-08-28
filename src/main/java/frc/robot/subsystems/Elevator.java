@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import poplib.subsytems.elevator.TalonElevator;
+import poplib.subsytems.elevator.SparkElevator;
 
-public class Elevator extends TalonElevator {
+public class Elevator extends SparkElevator {
   /** Creates a new Elevator. */
 
   private static Elevator instance;
