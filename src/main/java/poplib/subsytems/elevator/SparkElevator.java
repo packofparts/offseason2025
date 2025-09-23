@@ -1,6 +1,7 @@
 package poplib.subsytems.elevator;
 
 import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import poplib.control.FFConfig;
@@ -36,11 +37,11 @@ public class SparkElevator extends Elevator {
     }
 
     public void updatePID() {
-            leadMotor.getClosedLoopController().setReference(
-                super.setpoint.get(), 
-                ControlType.kPosition, 
-                ClosedLoopSlot.kSlot1, 
-                super.feedforward.calculate(getEncoderPos(), 0.0));
+        leadMotor.getClosedLoopController().setReference(
+            super.setpoint.get(), 
+            ControlType.kPosition, 
+            ClosedLoopSlot.kSlot0, 
+            super.feedforward.calculate(getEncoderPos()));
         
     }
 

@@ -11,20 +11,39 @@ import frc.robot.subsystems.Swerve;
 import poplib.controllers.oi.OI;
 import poplib.controllers.oi.XboxOI;
 import poplib.swerve.commands.TeleopSwerveDrive;
+
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class RobotContainer {
 
   private final Swerve swerve = Swerve.getInstance(); 
   private final Elevator elevator = Elevator.getInstance();
   private final Rollers rollers = Rollers.getInstance();
-
   private final OI oi = XboxOI.getInstance();
+
+  private final SendableChooser<PathPlannerAuto> autoChooser = new SendableChooser<>();
 
   public RobotContainer() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(swerve, oi));
+    oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
     configureBindings();
+
+    NamedCommands.registerCommand("ElevatorToL2", elevator.moveElevator(ScoringSetpoints.L2.getElevator()));
+    NamedCommands.registerCommand("ElevatorToL3", elevator.moveElevator(ScoringSetpoints.L3.getElevator()));
+    NamedCommands.registerCommand("LaunchCoral", launchCoral());
+    NamedCommands.registerCommand("ElevatorToIntake", elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
+
+    autoChooser.addOption("LeftL3", new PathPlannerAuto("LeftL3"));
+    SmartDashboard.putData(autoChooser);
+
+    
   }
 
 
@@ -41,6 +60,12 @@ public class RobotContainer {
   }
   
   public Command getAutonomousCommand() {
-    return null;
+    return autoChooser.getSelected();
+  }
+
+  public Command launchCoral() {
+    return rollers.runRollers().
+    andThen(new WaitCommand(1)).
+    andThen(rollers.stopRollers());
   }
 }

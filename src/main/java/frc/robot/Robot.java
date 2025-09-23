@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.FollowPathCommand;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -56,10 +58,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
+      System.out.println("Auto running: " + m_autonomousCommand.getName());
       m_autonomousCommand.schedule();
     }
+    else{
+      System.out.println("auto is null"); 
+    }
+    
+    FollowPathCommand.warmupCommand().schedule();
   }
 
   /** This function is called periodically during autonomous. */

@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.controllers.PathFollowingController;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -30,6 +34,10 @@ public final class Constants {
     static final String CANIVORE_NAME = "cantBUS";
 
     public static final class Swerve { 
+
+        public static final PathFollowingController AUTO_DRIVE_CONTROLLER = new PPHolonomicDriveController(
+            new PIDConstants(9.8, 0, 0), 
+            new PIDConstants(8.7, 0, 0));
 
         static final SDSModules MODULE_TYPE = SDSModules.MK4iL3;  // change
         static final boolean TUNING_MODE = false;
@@ -71,13 +79,13 @@ public final class Constants {
 
 
     public static class Elevator {
-        public static boolean TUNING_MODE = false;
+        public static boolean TUNING_MODE = true;
 
         public static MotorConfig RIGHT_MOTOR_CONFIG = new MotorConfig(
             34,                                                 // change
             60,
             false,                                           // change 
-            new PIDConfig(0.2, 0, 0.0, 0.02),                 // maybe change
+            new PIDConfig(0.2, 0, 0.0),                 // maybe change
             Mode.BRAKE
         );
         public static FollowerConfig LEFT_MOTOR_CONFIG = new FollowerConfig(
@@ -97,7 +105,7 @@ public final class Constants {
         public static MotorConfig MOTOR_CONFIG = new MotorConfig(
             55,
             40,
-            false,
+            true,
             Mode.BRAKE
         );
 
@@ -106,9 +114,9 @@ public final class Constants {
 
     public enum ScoringSetpoints {
         IDLE(0),
-        INTAKE(45),
-        L2(30),
-        L3(60);
+        INTAKE(22),
+        L2(75),
+        L3(100);
 
         private double elevator;
         

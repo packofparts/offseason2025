@@ -7,6 +7,10 @@ package frc.robot.subsystems;
 
 import java.util.ArrayList;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.RobotConfig;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants;
 import poplib.sensors.camera.CameraConfig;
 import poplib.sensors.camera.LimelightConfig;
@@ -37,6 +41,31 @@ public class Swerve extends VisionBaseSwerve {
           new Pigeon(Constants.Swerve.PIGEON_ID, Constants.Swerve.GYRO_INVERSION, "cantBUS"),
           Constants.Swerve.SWERVE_KINEMATICS, new ArrayList<CameraConfig>(), new ArrayList<LimelightConfig>()
         );
+
+
+        RobotConfig config = null;
+        try {
+          config = RobotConfig.fromGUISettings();
+        } catch (Exception e) {
+          DriverStation.reportError("Can't run autos, failed to get the robot config", false);
+        }
+
+
+        AutoBuilder.configure(
+          super::getOdomPose, 
+          super::setOdomPose, 
+          super::getChassisSpeeds, 
+          (speeds, feedforward) -> driveChassis(speeds), 
+          Constants.Swerve.AUTO_DRIVE_CONTROLLER, 
+          config, 
+          () -> {
+            var alliance = DriverStation.getAlliance();
+            if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+            }
+            return false;
+          },
+          this);
   }
 
   @Override

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -51,5 +52,7 @@ public class Rollers extends SubsystemBase {
   @Override
   public void periodic() {
     super.periodic();
+    SmartDashboard.putNumber("roller amps", motor.getSupplyCurrent().getValueAsDouble());
+    SmartDashboard.putNumber("roller speed", motor.get());
   }
 }

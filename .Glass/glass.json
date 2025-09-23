@@ -10,7 +10,9 @@
     },
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/SmartDashboard/FIELD_THING_LOL": "Field2d"
+      "/SmartDashboard/FIELD_THING_LOL": "Field2d",
+      "/SmartDashboard/PathPlanner": "Alerts",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
   },
   "NetworkTables Info": {
