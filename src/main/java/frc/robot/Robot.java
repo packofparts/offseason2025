@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private Command m_testCommand;
 
   private final RobotContainer m_robotContainer;
 
@@ -92,6 +93,15 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+    m_testCommand = m_robotContainer.getTestCommand();
+
+    if (m_testCommand != null) {
+      System.out.println("Test running: " + m_testCommand.getName());
+      m_testCommand.schedule();
+    }
+    else{
+      System.out.println("test is null"); 
+    }
   }
 
   /** This function is called periodically during test mode. */

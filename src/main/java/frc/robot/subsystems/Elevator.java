@@ -33,6 +33,7 @@ public class Elevator extends SparkElevator {
   public Command moveElevator(double setpoint) {
     return super.moveElevator(setpoint, Constants.Elevator.MAX_ERROR);
   }
+  
 
   @Override
   public void periodic() {

@@ -51,7 +51,7 @@ public class RobotContainer {
     oi.getDriverButton(XboxController.Button.kX.value).onTrue(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
     oi.getDriverButton(XboxController.Button.kB.value).onTrue(elevator.moveElevator(ScoringSetpoints.L2.getElevator()));
     oi.getDriverButton(XboxController.Button.kY.value).onTrue(elevator.moveElevator(ScoringSetpoints.L3.getElevator()));
-    oi.getDriverButton(XboxController.Button.kA.value).onTrue(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+    // oi.getDriverButton(XboxController.Button.kA.value).onTrue(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
     oi.getDriverTrigger(XboxController.Axis.kRightTrigger.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
     oi.getDriverTrigger(XboxController.Axis.kLeftTrigger.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
     oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
@@ -61,6 +61,18 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
+  }
+
+  public Command getTestCommand() {
+    return elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()).
+    andThen(elevator.moveElevator(ScoringSetpoints.L2.getElevator())).
+    andThen(elevator.moveElevator(ScoringSetpoints.L3.getElevator())).
+    andThen(rollers.runRollers()).
+    andThen(new WaitCommand(1)).
+    andThen(rollers.stopRollers()).
+    andThen(swerve.runSwerve());
+    // andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+    
   }
 
   public Command launchCoral() {

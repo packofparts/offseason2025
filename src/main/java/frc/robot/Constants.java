@@ -114,9 +114,9 @@ public final class Constants {
 
     public enum ScoringSetpoints {
         IDLE(0),
-        INTAKE(22),
+        INTAKE(25),
         L2(75),
-        L3(100);
+        L3(105);//NEVER GO PAST 105
 
         private double elevator;
         
