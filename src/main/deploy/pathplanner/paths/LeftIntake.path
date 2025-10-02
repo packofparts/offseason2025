@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.336926229508197,
-        "y": 6.096475409836065
+        "x": 4.277834645063819,
+        "y": 5.770427353978865
       },
       "isLocked": false,
       "linkedName": "LeftScorePosition"
@@ -20,8 +20,8 @@
         "y": 7.11782786885299
       },
       "prevControl": {
-        "x": 2.6972336065573774,
-        "y": 7.858668032786885
+        "x": 1.9403563730723845,
+        "y": 6.778275764790943
       },
       "nextControl": null,
       "isLocked": false,
