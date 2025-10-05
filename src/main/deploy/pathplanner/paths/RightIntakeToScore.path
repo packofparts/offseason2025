@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.259366339557239,
-        "y": 1.7671655684753693
+        "x": 2.257398449267365,
+        "y": 1.4364090634935853
       },
       "isLocked": false,
       "linkedName": "RightIntakePosition"
     },
     {
       "anchor": {
-        "x": 3.8883201477132,
-        "y": 2.8669664273479225
+        "x": 5.463050331734653,
+        "y": 3.0618863496745825
       },
       "prevControl": {
-        "x": 3.1174342105227906,
-        "y": 2.2930921052676445
+        "x": 4.640096804184079,
+        "y": 2.5938983175122834
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.886526940423987
+    "rotation": 30.068582821862407
   },
   "reversed": false,
   "folder": null,

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1552631578947365,
-        "y": 6.28610197368421
+        "x": 2.319260822489914,
+        "y": 6.586708140731576
       },
       "isLocked": false,
       "linkedName": "LeftIntakePosition"
     },
     {
       "anchor": {
-        "x": 3.4445723684210527,
-        "y": 5.00641447368421
+        "x": 4.785609445816997,
+        "y": 5.385410615091575
       },
       "prevControl": {
-        "x": 1.3392474654874893,
-        "y": 7.092779874892148
+        "x": 2.3759417199630706,
+        "y": 6.745384219368986
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -150.58440116690448
+    "rotation": 149.0362434679437
   },
   "reversed": false,
   "folder": null,
