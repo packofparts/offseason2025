@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.319260822489914,
-        "y": 6.586708140731576
+        "x": 2.2569359690790964,
+        "y": 6.642103137519196
       },
       "isLocked": false,
       "linkedName": "LeftIntakePosition"
@@ -20,8 +20,8 @@
         "y": 5.385410615091575
       },
       "prevControl": {
-        "x": 2.3759417199630706,
-        "y": 6.745384219368986
+        "x": 2.176061628713339,
+        "y": 6.766154445366304
       },
       "nextControl": null,
       "isLocked": false,
