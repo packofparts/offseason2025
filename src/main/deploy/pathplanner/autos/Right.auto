@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftToScore"
+            "pathName": "RightToScore"
           }
         },
         {
@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToL3"
+                  "name": "ElevatorToL2"
                 }
               },
               {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LeftIntake"
+            "pathName": "RightIntake"
           }
         },
         {
@@ -44,13 +44,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 2.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LeftIntakeToScore"
+            "pathName": "RightIntakeToScore"
           }
         },
         {
@@ -60,7 +60,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToL3"
+                  "name": "ElevatorToL2"
                 }
               },
               {
