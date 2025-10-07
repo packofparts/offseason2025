@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 
+import edu.wpi.first.hal.can.CANJNI;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -73,9 +74,10 @@ public class Swerve extends VisionBaseSwerve {
   @Override
   public void periodic() {
     super.periodic();
+
   }
 
   public Command runSwerve() {
-    return runOnce(() -> super.driveRobotOriented(new Translation2d(1,0), 0.5));
+    return run(() -> super.driveRobotOriented(new Translation2d(1,0), 0.5));
   }
 }

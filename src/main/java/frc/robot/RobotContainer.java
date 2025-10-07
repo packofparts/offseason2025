@@ -40,7 +40,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("LaunchCoral", launchCoral());
     NamedCommands.registerCommand("ElevatorToIntake", elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
 
-    autoChooser.addOption("LeftL3", new PathPlannerAuto("LeftL3"));
+    autoChooser.addOption("Left L3", new PathPlannerAuto("Left L3"));
+    autoChooser.addOption("Left L2", new PathPlannerAuto("Left L2"));
+    autoChooser.addOption("Middle L3", new PathPlannerAuto("Middle L3"));
+    autoChooser.addOption("Middle L2", new PathPlannerAuto("Middle L2"));
+    autoChooser.addOption("New Auto", new PathPlannerAuto("New Auto"));
     SmartDashboard.putData(autoChooser);
 
     
@@ -64,15 +68,18 @@ public class RobotContainer {
   }
 
   public Command getTestCommand() {
-    return elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()).
+    return swerve.runSwerve().
+    andThen(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator())).
+    andThen(new WaitCommand(1)).
     andThen(elevator.moveElevator(ScoringSetpoints.L2.getElevator())).
+    andThen(new WaitCommand(1)).
     andThen(elevator.moveElevator(ScoringSetpoints.L3.getElevator())).
     andThen(rollers.runRollers()).
     andThen(new WaitCommand(1)).
     andThen(rollers.stopRollers()).
-    andThen(swerve.runSwerve());
-    // andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
-    
+    andThen(swerve.runSwerve()).
+    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
+
   }
 
   public Command launchCoral() {

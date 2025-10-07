@@ -79,7 +79,7 @@ public final class Constants {
 
 
     public static class Elevator {
-        public static boolean TUNING_MODE = true;
+        public static boolean TUNING_MODE = false;
 
         public static MotorConfig RIGHT_MOTOR_CONFIG = new MotorConfig(
             34,                                                 // change
