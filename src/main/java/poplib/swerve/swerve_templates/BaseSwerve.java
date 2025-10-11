@@ -137,7 +137,7 @@ abstract public class BaseSwerve extends SubsystemBase {
 
         vector = vector.rotateBy(new Rotation2d(
             Units.Degrees.of(color == Alliance.Red ? 180 : 0).minus(gyro.getLatencyCompensatedAngle())
-        ));
+        )); 
 
         // vector = vector.rotateBy(Rotation2d.fromDegrees(color == Alliance.Red ? 180 : 0).minus(gyro.getLatencyCompensatedAngle())); //TODO: TEST
 

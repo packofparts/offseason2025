@@ -37,7 +37,7 @@ public final class Constants {
 
         public static final PathFollowingController AUTO_DRIVE_CONTROLLER = new PPHolonomicDriveController(
             new PIDConstants(9.8, 0, 0), 
-            new PIDConstants(8.7, 0, 0));
+            new PIDConstants(0.5, 0, 0));
 
         static final SDSModules MODULE_TYPE = SDSModules.MK4iL3;  // change
         static final boolean TUNING_MODE = false;
@@ -109,7 +109,7 @@ public final class Constants {
             Mode.BRAKE
         );
 
-        public static double SPEED = 0.9;
+        public static double SPEED = 0.8;
     }
 
     public enum ScoringSetpoints {

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.345020491805501,
-        "y": 7.11782786885299
+        "x": 1.5464139344262295,
+        "y": 7.29045081967213
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2569359690790964,
-        "y": 6.642103137519196
+        "x": 2.458329411699825,
+        "y": 6.814726088338336
       },
       "isLocked": false,
       "linkedName": "LeftIntakePosition"
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 149.0362434679437
+    "rotation": -119.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -142.95752522691717
+    "rotation": 36.0
   },
   "useDefaultConstraints": true
 }

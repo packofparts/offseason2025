@@ -40,11 +40,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("LaunchCoral", launchCoral());
     NamedCommands.registerCommand("ElevatorToIntake", elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()));
 
-    autoChooser.addOption("Left L3", new PathPlannerAuto("Left L3"));
-    autoChooser.addOption("Left L2", new PathPlannerAuto("Left L2"));
-    autoChooser.addOption("Middle L3", new PathPlannerAuto("Middle L3"));
-    autoChooser.addOption("Middle L2", new PathPlannerAuto("Middle L2"));
-    autoChooser.addOption("New Auto", new PathPlannerAuto("New Auto"));
+    autoChooser.addOption("Left", new PathPlannerAuto("Left"));
+    autoChooser.addOption("Right", new PathPlannerAuto("Right"));
+    autoChooser.addOption("Get outa here", new PathPlannerAuto("Get outa here"));
+    //autoChooser.addOption("New Auto", new PathPlannerAuto("New Auto"));
     SmartDashboard.putData(autoChooser);
 
     
@@ -59,8 +58,8 @@ public class RobotContainer {
     oi.getDriverTrigger(XboxController.Axis.kRightTrigger.value).onTrue(rollers.runRollers()).onFalse(rollers.stopRollers());
     oi.getDriverTrigger(XboxController.Axis.kLeftTrigger.value).onTrue(rollers.runRollersBackward()).onFalse(rollers.stopRollers());
     oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
-    oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
-    oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
+    //oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
+    //oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
   }
   
   public Command getAutonomousCommand() {
@@ -68,8 +67,7 @@ public class RobotContainer {
   }
 
   public Command getTestCommand() {
-    return swerve.runSwerve().
-    andThen(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator())).
+    return elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator()).
     andThen(new WaitCommand(1)).
     andThen(elevator.moveElevator(ScoringSetpoints.L2.getElevator())).
     andThen(new WaitCommand(1)).
@@ -78,8 +76,8 @@ public class RobotContainer {
     andThen(new WaitCommand(1)).
     andThen(rollers.stopRollers()).
     andThen(swerve.runSwerve()).
-    andThen(elevator.moveElevator(ScoringSetpoints.IDLE.getElevator()));
-
+    andThen(elevator.moveElevator(ScoringSetpoints.INTAKE.getElevator())).
+    andThen(swerve.runSwerve());
   }
 
   public Command launchCoral() {

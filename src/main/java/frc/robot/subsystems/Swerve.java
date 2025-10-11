@@ -74,7 +74,6 @@ public class Swerve extends VisionBaseSwerve {
   @Override
   public void periodic() {
     super.periodic();
-
   }
 
   public Command runSwerve() {
