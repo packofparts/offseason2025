@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.ScoringSetpoints;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Swerve;
 import poplib.controllers.oi.OI;
@@ -27,6 +28,7 @@ public class RobotContainer {
   private final Elevator elevator = Elevator.getInstance();
   private final Rollers rollers = Rollers.getInstance();
   private final OI oi = XboxOI.getInstance();
+  private final Flywheel flywheel = new Flywheel();
 
   private final SendableChooser<PathPlannerAuto> autoChooser = new SendableChooser<>();
 
@@ -60,6 +62,8 @@ public class RobotContainer {
     oi.getDriverButton(XboxController.Button.kStart.value).onTrue(swerve.resetGyroCommand());
     //oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
     //oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
+
+    oi.getDriverButton(XboxController.Button.kA.value).onTrue(flywheel.updateSetpointCommand(100)).onFalse(flywheel.updateSetpointCommand(0));
   }
   
   public Command getAutonomousCommand() {

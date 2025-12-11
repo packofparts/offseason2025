@@ -128,4 +128,10 @@ public final class Constants {
             return this.elevator;
         }
     }
+
+    public final class Flywheel {
+        public static MotorConfig lead = new MotorConfig(12, 60, false, Mode.COAST);
+        public static MotorConfig follow = new MotorConfig(13, 60, true, Mode.COAST);
+        public static boolean TUNING_MODE = false;
+    }
 }
