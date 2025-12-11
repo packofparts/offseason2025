@@ -22,4 +22,9 @@ public class Flywheel extends TalonFlywheel {
             false
         );
     }
+
+    @Override
+    public void periodic() {
+        super.periodic();
+    }
 }
