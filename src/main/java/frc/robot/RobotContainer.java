@@ -28,7 +28,7 @@ public class RobotContainer {
   private final Elevator elevator = Elevator.getInstance();
   private final Rollers rollers = Rollers.getInstance();
   private final OI oi = XboxOI.getInstance();
-  private final Flywheel flywheel = new Flywheel();
+  private final Flywheel flywheel = Flywheel.getInstance();
 
   private final SendableChooser<PathPlannerAuto> autoChooser = new SendableChooser<>();
 
@@ -63,7 +63,8 @@ public class RobotContainer {
     //oi.getDriverController().povUp().onTrue(elevator.manuallyControlWithPID(Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
     //oi.getDriverController().povDown().onTrue(elevator.manuallyControlWithPID(-Constants.Elevator.MANUAL_CONTROL_STEP_SIZE, Constants.Elevator.MAX_ERROR));
 
-    oi.getDriverButton(XboxController.Button.kA.value).onTrue(flywheel.updateSetpointCommand(100)).onFalse(flywheel.updateSetpointCommand(0));
+    oi.getDriverButton(XboxController.Button.kRightBumper.value).onTrue(flywheel.updateSetpointCommand(100)).onFalse(flywheel.updateSetpointCommand(0));
+    oi.getDriverButton(XboxController.Button.kLeftBumper.value).onTrue(flywheel.updateSetpointCommand(100)).onFalse(flywheel.updateSetpointCommand(0));
   }
   
   public Command getAutonomousCommand() {
